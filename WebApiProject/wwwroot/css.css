@@ -1,0 +1,23 @@
+﻿body {
+    text-align: center;
+    font-family: cursive;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position-x: center;
+}
+
+.btn {
+    width: 200px;
+    height: 60px;
+    font-size: x-large;
+    font-family: cursive;
+    color: black;
+    background-color: pink;
+    border-color: black;
+    border-width: initial;
+}
+
+.inputs {
+    width: 200px;
+    height: 30px;
+}

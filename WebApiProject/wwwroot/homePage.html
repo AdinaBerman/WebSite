@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css.css">
+    <title></title>
+</head>
+<body>
+    <h1>Login</h1>
+
+    <h3>User Name</h3><input id="username" class="inputs" />
+
+    <h3>User Password</h3> <input type="password" id="password" class="inputs" /><br /><br />
+
+    <button onclick="login()" class="btn">Login</button>
+
+    <script src="login.js"></script>
+
+    <button onclick="showRregister()" class="btn">showRregister</button>
+
+    <br /><br />
+          <div id="visibilityRegister">
+              <!--style="visibility:hidden"-->
+              <h1>Register</h1>
+
+              <h3>User Name</h3><input id="userNameRegister" class="inputs" />
+
+              <h3>User Password</h3> <input type="password" id="passwordRegister" class="inputs" /> <br />
+
+              <button onclick="checkStrongPassword()"> check strong password : </button>
+              <progress id="progressValue" value="0" max="4"></progress>
+
+              <h3>First Name</h3><input id="FirstName" class="inputs" />
+
+              <h3>Last Name</h3> <input id="LastName" class="inputs" />
+              <br /><br />
+
+              <button onclick="register()" class="btn">Register</button>
+          </div>
+</body>
+</html>
