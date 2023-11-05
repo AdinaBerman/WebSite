@@ -5,6 +5,8 @@ using System.Text.Json;
 
 namespace Resorces
 {
+    //Rename folder to Repositories 
+    //Why does the namespace called Resorces?? change it...
     public class Repository: IRepository
     {
         private static string pathFile = "M:/Web Api/WebApiProject/Resorces/user.txt";

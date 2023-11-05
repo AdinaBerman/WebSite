@@ -11,15 +11,18 @@ namespace WebApiProject.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        IUserService userService;
+        IUserService userService; //_userService - convention 
 
         public UsersController(IUserService iuserService)
+        //IuserService userService (instead of  iuserService)
+
         {
             userService = iuserService;
         }
 
         // GET: api/<UsersController>
         [HttpGet]
+        //IEnumerable? why?
         public async Task<ActionResult<IEnumerable<User>>> Get([FromQuery] string password, [FromQuery] string userName)
         {
             User user = await userService.GetUserByUsarNameAndPassword(userName, password);
@@ -41,15 +44,21 @@ namespace WebApiProject.Controllers
 
         //POST api/<UsersController>
         [HttpPost]
+        //async await???? Task<ActionResult<User>>
         public ActionResult<User> Post([FromBody] User user)
         {
+
             try
             {
+                //newUser= , Store the result of adding the user into  'newUser' variable.
                 userService.addUser(user);
                 return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
-            } 
-            catch(Exception e)
+                //Check if newUser==null return BadRequest() 
+
+            }
+            catch (Exception e)
             {
+                //(An exception return an interanl server error- 500) 
                 throw e;
             }
            
@@ -61,7 +70,7 @@ namespace WebApiProject.Controllers
             int res = userService.checkPassword(password);
             if (res > 2)
                 return Ok(res);
-            return NoContent();
+            return NoContent();//NoContent isn't suitable here, use BadRequest()
         }
 
 
@@ -73,6 +82,7 @@ namespace WebApiProject.Controllers
             {
                 User updateUser = await userService.update(id, userUpdate);
                 return Ok(updateUser);
+                //Check if updateUser==null return BadRequest()
             }
             catch (Exception e)
             {
@@ -80,7 +90,7 @@ namespace WebApiProject.Controllers
             }
         }
 
-
+        //Clean code -Remove unnecessary lines of code.
         // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
