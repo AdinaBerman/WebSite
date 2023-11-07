@@ -1,3 +1,5 @@
+using Entities;
+using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Services;
 
@@ -9,6 +11,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddTransient<IRepository, UserRepository>();
 builder.Services.AddTransient<IUserService, UserServices>();
+
+builder.Services.AddDbContext<PruductsDbContext>(option => option.UseSqlServer("Server=srv2\\pupils;Database=PruductsDB;Trusted_Connection=True;TrustServerCertificate=True"));
+
 
 var app = builder.Build();
 

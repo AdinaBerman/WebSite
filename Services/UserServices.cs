@@ -19,11 +19,12 @@ namespace Services
         }
 
 
-        public User addUser(User user)
+        public async Task<User> addUser(User user)
         {
             int res = checkPassword(user.Password);
-            if(res < 2) return null;
-            return _repository.addUser(user);
+            if (res < 2) 
+                return null;
+            return await _repository.addUser(user);
         }
 
         public async Task<User> update(int id, User user)

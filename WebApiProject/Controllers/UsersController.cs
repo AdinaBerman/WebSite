@@ -41,11 +41,11 @@ namespace WebApiProject.Controllers
 
         //POST api/<UsersController>
         [HttpPost]
-        public ActionResult<User> Post([FromBody] User user)
+        public async Task<ActionResult<User>> Post([FromBody] User user)
         {
             try
             {
-                User newUser = _userService.addUser(user);
+                User newUser = await _userService.addUser(user);
                 if (newUser == null) 
                     return BadRequest();
                 return CreatedAtAction(nameof(Get), new { id = user.UserId }, newUser);
@@ -67,21 +67,23 @@ namespace WebApiProject.Controllers
         }
 
 
-        // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] User userUpdate)
-        {
-            try
-            {
-                User updateUser = await _userService.update(id, userUpdate);
-                if (updateUser == null)
-                    return BadRequest();
-                return Ok(updateUser);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+        //// PUT api/<UsersController>/5
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult> Put(int id, [FromBody] User userUpdate)
+        //{
+        //    try
+        //    {
+        //        User updateUser = await _userService.update(id, userUpdate);
+        //        if (updateUser == null)
+        //            return BadRequest();
+        //        return Ok(updateUser);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw e;
+        //    }
+        //}
+
+        //[HttpDelete("{id}")]
     }
 }

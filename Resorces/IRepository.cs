@@ -9,7 +9,7 @@ namespace Repositories
 {
     public interface IRepository
     {
-        User addUser(User user);
+        Task<User> addUser(User user);
         Task<User> GetUserByUsarNameAndPassword(string userName, string password);
         Task<User> update(int id, User userUpdate);
         Task<User> getUserById(int id);
