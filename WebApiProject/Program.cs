@@ -12,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddTransient<IRepository, UserRepository>();
 builder.Services.AddTransient<IUserService, UserServices>();
 
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PruductsDbContext>(option => option.UseSqlServer("Server=srv2\\pupils;Database=PruductsDB;Trusted_Connection=True;TrustServerCertificate=True"));
 
 
