@@ -12,14 +12,14 @@ namespace Repositories
 
         public async Task<User> addUser(User user)
         {
-            //await _pruductsDbContext.Users.AddAsync(user);
-            //await _pruductsDbContext.SaveChangesAsync();
-            //return user;
-            int numberOfUsers = System.IO.File.ReadLines("M:/Web Api/WebSite/Resorces/user.txt").Count();
-            user.UserId = numberOfUsers + 1;
-            string userJson = JsonSerializer.Serialize(user);
-            System.IO.File.AppendAllText("M:/Web Api/WebSite/Resorces/user.txt", userJson + Environment.NewLine);
+            await _pruductsDbContext.Users.AddAsync(user);
+            await _pruductsDbContext.SaveChangesAsync();
             return user;
+            //int numberOfUsers = System.IO.File.ReadLines("M:/Web Api/WebSite/Resorces/user.txt").Count();
+            //user.UserId = numberOfUsers + 1;
+            //string userJson = JsonSerializer.Serialize(user);
+            //System.IO.File.AppendAllText("M:/Web Api/WebSite/Resorces/user.txt", userJson + Environment.NewLine);
+            //return user;
 
         }
 
