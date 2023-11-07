@@ -7,6 +7,8 @@ const update = async () => {
         lastName: document.getElementById("LastName").value
     }
 
+    checkStrongPassword()
+
     try {
         const userJson = sessionStorage.getItem("user")
         const id = JSON.parse(userJson).userId

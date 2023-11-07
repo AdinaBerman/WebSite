@@ -1,7 +1,15 @@
+
+
 //const showRregister () => {
 //    const reg = document.getElementById("visibilityRegister")
 //    reg.
 //}
+
+//const userToHello = sessionStorage.getItem("user");
+//const userToHelloJSON = JSON.parse(userToHello)
+//const hello = document.getElementById("hello")
+//hello.innerHTML = `Hello ${userToHelloJSON.FirstName}! Welcome to our site!`
+
 const login = async () => {
 
     try {
@@ -9,7 +17,9 @@ const login = async () => {
         const password = document.getElementById("password").value
         const res = await fetch(`api/Users?userName=${userName}&password=${password}`)
 
-        if (res.status == 204)
+        if (res.status == 400)
+            alert("Error in connection DB")
+        else if (res.status == 204)
             window.alert("userName or password are not valid")
         else {
             const user = await res.json()
@@ -27,14 +37,14 @@ const register = async () => {
     const user = {
         UserName: document.getElementById("userNameRegister").value,
         Password: document.getElementById("passwordRegister").value,
-        firstName: document.getElementById("FirstName").value,
-        lastName: document.getElementById("LastName").value
+        FirstName: document.getElementById("FirstName").value,
+        LastName: document.getElementById("LastName").value
     }
 
     const checkIfStrong = await checkStrongPassword()
 
-    if (checkIfStrong == 1) {
-        alert("Please enter strong password!")
+    if (!checkIfStrong) {
+        return alert("Please enter strong password!");
     }
 
     try {
@@ -54,7 +64,43 @@ const register = async () => {
     }
 
     catch (err) {
-        throw err;
+        console.log(err);
+    }
+}
+
+const update = async () => {
+
+    const user = {
+        UserName: document.getElementById("userNameRegister").value,
+        Password: document.getElementById("passwordRegister").value,
+        firstName: document.getElementById("FirstName").value,
+        lastName: document.getElementById("LastName").value
+    }
+
+    const checkIfStrong = await checkStrongPassword()
+
+    if (!checkIfStrong) {
+        return alert("Please enter strong password!");
+    }
+
+    try {
+        const userJson = sessionStorage.getItem("user")
+        const id = JSON.parse(userJson).userId
+        const res = await fetch(`api/Users/${id}`,
+            {
+                method: 'PUT',
+                headers: { 'Content-Type': `application/json` },
+                body: JSON.stringify(user)
+            })
+        if (!res.ok)
+            alert("error updated to the server,please try again!")
+        else {
+
+            alert(`user ${id} updated succfully`)
+        }
+
+    } catch (e) {
+        alert(e)
     }
 }
 
@@ -71,18 +117,18 @@ const checkStrongPassword = async () => {
                 body: JSON.stringify(strongPass)
 
             })
-        if (res.status == 204)
-            return alert("Your password isn't strong, enter a new one")
+        if (!res.ok)
+            return false;
 
         const score = await res.json()
         progressValue.value = score;
 
-        if (score > 2) {
-            return 0;
+        if (score >= 2) {
+            return true;
         }
         else {
              alert("Easy password... Enter a new one!")
-            return 1;
+            return false;
         }
 
     }

@@ -1,13 +1,13 @@
 ﻿using Entities;
-using Repository;
+using Repositories;
 using System.Reflection.Metadata;
 using System.Text.Json;
 
-namespace Resorces
+namespace Repositories
 {
-    public class Repository: IRepository
+    public class UserRepository: IRepository
     {
-        private static string pathFile = "M:/Web Api/WebApiProject/Resorces/user.txt";
+        private static string pathFile = "./Repositories/user.txt";
 
         public User addUser(User user)
         {

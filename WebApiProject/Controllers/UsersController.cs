@@ -11,18 +11,18 @@ namespace WebApiProject.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        IUserService userService;
+        IUserService _userService;
 
-        public UsersController(IUserService iuserService)
+        public UsersController(IUserService userService)
         {
-            userService = iuserService;
+            _userService = userService;
         }
 
         // GET: api/<UsersController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get([FromQuery] string password, [FromQuery] string userName)
+        public async Task<ActionResult<User>> Get([FromQuery] string password, [FromQuery] string userName)
         {
-            User user = await userService.GetUserByUsarNameAndPassword(userName, password);
+            User user = await _userService.GetUserByUsarNameAndPassword(userName, password);
             if (user != null)
                 return Ok(user);
             return NoContent();
@@ -33,7 +33,7 @@ namespace WebApiProject.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<User>>> Get(int id)
         {
-            User user = await userService.getUserById(id);
+            User user = await _userService.getUserById(id);
             if (user == null)
                 return NoContent();
             return Ok(user);
@@ -45,8 +45,10 @@ namespace WebApiProject.Controllers
         {
             try
             {
-                userService.addUser(user);
-                return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
+                User newUser = _userService.addUser(user);
+                if (newUser == null) 
+                    return BadRequest();
+                return CreatedAtAction(nameof(Get), new { id = user.UserId }, newUser);
             } 
             catch(Exception e)
             {
@@ -58,10 +60,10 @@ namespace WebApiProject.Controllers
         [HttpPost("checkStrongPassword")]
         public ActionResult<User> Post([FromBody] string password)
         {
-            int res = userService.checkPassword(password);
+            int res = _userService.checkPassword(password);
             if (res > 2)
                 return Ok(res);
-            return NoContent();
+            return BadRequest();
         }
 
 
@@ -71,20 +73,15 @@ namespace WebApiProject.Controllers
         {
             try
             {
-                User updateUser = await userService.update(id, userUpdate);
+                User updateUser = await _userService.update(id, userUpdate);
+                if (updateUser == null)
+                    return BadRequest();
                 return Ok(updateUser);
             }
             catch (Exception e)
             {
                 throw e;
             }
-        }
-
-
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
