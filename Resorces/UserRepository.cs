@@ -7,7 +7,7 @@ namespace Repositories
 {
     public class UserRepository: IRepository
     {
-        private static string pathFile = "./Repositories/user.txt";
+        private static string pathFile = "C:/Users/325739092/source/repos/WebSite/Resorces/user.txt";
 
         public User addUser(User user)
         {
