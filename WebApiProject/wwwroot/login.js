@@ -35,7 +35,7 @@ const login = async () => {
 
 const register = async () => {
     const user = {
-        UserName: document.getElementById("userNameRegister").value,
+        Email: document.getElementById("userNameRegister").value,
         Password: document.getElementById("passwordRegister").value,
         FirstName: document.getElementById("FirstName").value,
         LastName: document.getElementById("LastName").value
@@ -59,7 +59,7 @@ const register = async () => {
             alert("Sorry, we couldn't add you to our site, Try again")
         else {
             const data = await res.json()
-            alert(`user ${data.userName} registered succfully`)
+            alert(`user ${data.Email} registered succfully`)
         }
     }
 
@@ -71,10 +71,11 @@ const register = async () => {
 const update = async () => {
 
     const user = {
-        UserName: document.getElementById("userNameRegister").value,
+        UserId: 0,
+        Email: document.getElementById("userNameRegister").value,
         Password: document.getElementById("passwordRegister").value,
-        firstName: document.getElementById("FirstName").value,
-        lastName: document.getElementById("LastName").value
+        FirstName: document.getElementById("FirstName").value,
+        LastName: document.getElementById("LastName").value
     }
 
     const checkIfStrong = await checkStrongPassword()
@@ -85,7 +86,9 @@ const update = async () => {
 
     try {
         const userJson = sessionStorage.getItem("user")
+        console.log(userJson);
         const id = JSON.parse(userJson).userId
+        user.UserId = id;
         const res = await fetch(`api/Users/${id}`,
             {
                 method: 'PUT',
@@ -121,7 +124,8 @@ const checkStrongPassword = async () => {
             return false;
 
         const score = await res.json()
-        progressValue.value = score;
+        if(progressValue != null)
+            progressValue.value = score;
 
         if (score >= 2) {
             return true;

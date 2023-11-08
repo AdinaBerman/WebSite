@@ -1,82 +1,36 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services;
 
 namespace WebApiProject.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class OrdersController : Controller
     {
-        // GET: OrdersController
-        public ActionResult Index()
-        {
-            return View();
-        }
+        IOrderServices _orderServices;
 
-        // GET: OrdersController/Details/5
-        public ActionResult Details(int id)
+        public OrdersController(IOrderServices orderervice)
         {
-            return View();
-        }
-
-        // GET: OrdersController/Create
-        public ActionResult Create()
-        {
-            return View();
+            _orderServices = orderervice;
         }
 
         // POST: OrdersController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult<Order>> Post([FromBody] Order order)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                User newOrder = await _orderServices.addOrder(order);
+                if (newOrder == null)
+                    return BadRequest();
+                return CreatedAtAction(nameof(GetType), new { id = order.OrderId }, newOrder);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
-            }
-        }
-
-        // GET: OrdersController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: OrdersController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: OrdersController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: OrdersController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                throw e;
             }
         }
     }

@@ -8,19 +8,18 @@ namespace Repositories
 {
     public class UserRepository: IUserRepository
     {
-        private static PruductsDbContext _pruductsDbContext = new PruductsDbContext();
+        PruductsDbContext _pruductsDbContext;
+
+        public UserRepository(PruductsDbContext pruductsDbContext)
+        {
+            _pruductsDbContext = pruductsDbContext;
+        }
 
         public async Task<User> addUser(User user)
         {
             await _pruductsDbContext.Users.AddAsync(user);
             await _pruductsDbContext.SaveChangesAsync();
             return user;
-            //int numberOfUsers = System.IO.File.ReadLines("M:/Web Api/WebSite/Resorces/user.txt").Count();
-            //user.UserId = numberOfUsers + 1;
-            //string userJson = JsonSerializer.Serialize(user);
-            //System.IO.File.AppendAllText("M:/Web Api/WebSite/Resorces/user.txt", userJson + Environment.NewLine);
-            //return user;
-
         }
 
         public async Task<User> GetUserByUsarNameAndPassword(string userName, string password)
@@ -30,7 +29,9 @@ namespace Repositories
 
         public async Task<User> update(int id, User userUpdate)
         {
-            _pruductsDbContext.Users.Update(userUpdate);
+            userUpdate.UserId = id;
+
+             var res=_pruductsDbContext.Users.Update(userUpdate);
             await _pruductsDbContext.SaveChangesAsync();
             return userUpdate;
         }

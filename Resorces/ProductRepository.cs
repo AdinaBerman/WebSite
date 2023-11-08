@@ -13,9 +13,9 @@ namespace Repositories
     {
         private static PruductsDbContext _pruductsDbContext = new PruductsDbContext();
 
-        public async Task<ICollection<Product>> GetProducts()
+        public async Task<ICollection<Product>> getProducts()
         {
-            return await _pruductsDbContext.Products.
+            return await _pruductsDbContext.Products.ToListAsync();
         }
 
     }

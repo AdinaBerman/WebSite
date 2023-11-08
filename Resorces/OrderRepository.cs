@@ -18,20 +18,6 @@ namespace Repositories
             await _pruductsDbContext.Orders.AddAsync(order);
             await _pruductsDbContext.SaveChangesAsync();
             return order;
-
-        }
-
-        public async Task<Order> updateOrder(int id, Order orderUPdate)
-        {
-            _pruductsDbContext.Orders.Update(orderUPdate);
-            await _pruductsDbContext.SaveChangesAsync();
-            return orderUPdate;
-        }
-
-        public async Task<Order> getOrderById(int id)
-        {
-            return await _pruductsDbContext.Orders.Where(o => o.OrderId == id).FirstOrDefaultAsync();
-
         }
     }
 }

@@ -21,15 +21,5 @@ namespace Services
         {
             return await _repository.addOrder(order);
         }
-
-        public async Task<Order> updateOrder(int id, Order order)
-        {
-            return await _repository.updateOrder(id, order);
-        }
-
-        public async Task<Order> getOrderById(int id)
-        {
-            return await _repository.getOrderById(id);
-        }
     }
 }

@@ -10,26 +10,17 @@ namespace Services
 {
     public class ProductServices : IProductServices
     {
-        private readonly ICategoryRepository _repository;
+        private readonly IProductRepository _repository;
 
-        public ProductServices(ICategoryRepository productRepository)
+        public ProductServices(IProductRepository productRepository)
         {
             _repository = productRepository;
         }
 
-        public async Task<Product> addProduct(Product product)
+        public async Task<ICollection<Product>> getProduct()
         {
-            return await _repository.addProduct(product);
+            return await _repository.getProducts();
         }
 
-        public async Task<Product> updateProduct(int id, Product product)
-        {
-            return await _repository.updateProduct(id, product);
-        }
-
-        public async Task<Product> getProductById(int id)
-        {
-            return await _repository.getProductById(id);
-        }
     }
 }

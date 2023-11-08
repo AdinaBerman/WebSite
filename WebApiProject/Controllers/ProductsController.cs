@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace WebApiProject.Controllers
 {
+
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class ProductsController : Controller
     {
         // GET: ProductsController

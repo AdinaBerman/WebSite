@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Entities;
+namespace Repositories;
 
 public partial class PruductsDbContext : DbContext
 {
@@ -15,7 +16,7 @@ public partial class PruductsDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Category> Products { get; set; }
+    public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 
@@ -46,11 +47,11 @@ public partial class PruductsDbContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
+            entity.HasKey(e => e.OrderId).HasName("PK__ORDERS__460A94641D7B9099");
+
             entity.ToTable("ORDERS");
 
-            entity.Property(e => e.OrderId)
-                .ValueGeneratedNever()
-                .HasColumnName("ORDER_ID");
+            entity.Property(e => e.OrderId).HasColumnName("ORDER_ID");
             entity.Property(e => e.OrderDate)
                 .HasColumnType("datetime")
                 .HasColumnName("ORDER_DATE");
@@ -59,17 +60,16 @@ public partial class PruductsDbContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ORDERS_Users");
+                .HasConstraintName("FK__ORDERS__USER_ID__4222D4EF");
         });
 
         modelBuilder.Entity<OrderItem>(entity =>
         {
+            entity.HasKey(e => e.OrderItemId).HasName("PK__ORDER_IT__E15C4316450EDBD4");
+
             entity.ToTable("ORDER_ITEM");
 
-            entity.Property(e => e.OrderItemId)
-                .ValueGeneratedNever()
-                .HasColumnName("ORDER_ITEM_ID");
+            entity.Property(e => e.OrderItemId).HasColumnName("ORDER_ITEM_ID");
             entity.Property(e => e.OrderId).HasColumnName("ORDER_ID");
             entity.Property(e => e.ProductId).HasColumnName("PRODUCT_ID");
             entity.Property(e => e.Quentity).HasColumnName("QUENTITY");
@@ -77,12 +77,11 @@ public partial class PruductsDbContext : DbContext
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ORDER_ITEM_ORDERS");
+                .HasConstraintName("FK__ORDER_ITE__ORDER__45F365D3");
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ORDER_ITEM_PRODUCTS");
+                .HasConstraintName("FK__ORDER_ITE__PRODU__44FF419A");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -115,28 +114,26 @@ public partial class PruductsDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK_Users");
+            entity.HasKey(e => e.UserId).HasName("PK__USERS__F3BEEBFFE1301560");
 
             entity.ToTable("USERS");
 
-            entity.Property(e => e.UserId)
-                .ValueGeneratedNever()
-                .HasColumnName("USER_ID");
+            entity.Property(e => e.UserId).HasColumnName("USER_ID");
             entity.Property(e => e.Email)
-                .HasMaxLength(50)
-                .IsUnicode(false)
+                .HasMaxLength(20)
+                .IsFixedLength()
                 .HasColumnName("EMAIL");
             entity.Property(e => e.FirstName)
-                .HasMaxLength(25)
-                .IsUnicode(false)
+                .HasMaxLength(20)
+                .IsFixedLength()
                 .HasColumnName("FIRST_NAME");
             entity.Property(e => e.LastName)
-                .HasMaxLength(25)
-                .IsUnicode(false)
+                .HasMaxLength(20)
+                .IsFixedLength()
                 .HasColumnName("LAST_NAME");
             entity.Property(e => e.Password)
                 .HasMaxLength(15)
-                .IsUnicode(false)
+                .IsFixedLength()
                 .HasColumnName("PASSWORD");
         });
 
