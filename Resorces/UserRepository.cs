@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Repositories
 {
-    public class UserRepository: IRepository
+    public class UserRepository: IUserRepository
     {
         private static PruductsDbContext _pruductsDbContext = new PruductsDbContext();
 

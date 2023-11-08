@@ -2,10 +2,8 @@
 
 namespace Repositories
 {
-    public interface ICategoryRepository
+    public interface IProductRepository
     {
-        Task<Product> addProduct(Product prod);
-        Task<Product> getProductById(int id);
-        Task<Product> updateProduct(int id, Product updateProd);
+        public Task<ICollection<Product>> GetProducts();
     }
 }

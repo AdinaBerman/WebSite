@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public interface IRepository
+    public interface IUserRepository
     {
         Task<User> addUser(User user);
         Task<User> GetUserByUsarNameAndPassword(string userName, string password);

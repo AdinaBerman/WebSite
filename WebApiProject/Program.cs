@@ -14,7 +14,7 @@ internal class Program
 
         builder.Services.AddControllers();
 
-        builder.Services.AddTransient<IRepository, UserRepository>();
+        builder.Services.AddTransient<IUserRepository, UserRepository>();
         builder.Services.AddTransient<IUserService, UserServices>();
 
         builder.Services.AddEndpointsApiExplorer();
