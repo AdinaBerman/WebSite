@@ -59,7 +59,7 @@ const register = async () => {
             alert("Sorry, we couldn't add you to our site, Try again")
         else {
             const data = await res.json()
-            alert(`user ${data.Email} registered succfully`)
+            alert(`user ${data.FirstName} ${data.LastName} registered succfully`)
         }
     }
 

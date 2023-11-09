@@ -23,7 +23,7 @@ namespace WebApiProject.Controllers
         {
             try
             {
-                User newOrder = await _orderServices.addOrder(order);
+                Order newOrder = await _orderServices.addOrder(order);
                 if (newOrder == null)
                     return BadRequest();
                 return CreatedAtAction(nameof(GetType), new { id = order.OrderId }, newOrder);
