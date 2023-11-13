@@ -50,7 +50,7 @@ p.description{
     height:65px;
 }
 .bar::before {
-    content: 'חנות הצעצועים שלי';
+    content: 'All For Your Buitiful Garden';
     color: white;
     /* display: inline-block; */
     position: absolute;
@@ -101,13 +101,14 @@ p.description{
     height: 16px;
 }
 
-    .BagSummary .Icon .ItemCount span {
-        text-align: center;
-        width: 100%;
-        display: block;
-        font-size: 100%;
-        margin-top: -1px;
-    }
+.BagSummary .Icon .ItemCount span {
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-size: 100%;
+    margin-top: -1px;
+}
+
 .goToCart {
     background: #1a6461;
     font-size: 11px;

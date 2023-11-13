@@ -141,3 +141,7 @@ const checkStrongPassword = async () => {
     }
 }
 
+const goShopping = () => {
+    window.location.href = "Products.html"
+}
+

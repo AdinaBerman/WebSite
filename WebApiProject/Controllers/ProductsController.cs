@@ -19,9 +19,9 @@ namespace WebApiProject.Controllers
 
         // GET: api/<CategoriesController>
         [HttpGet]
-        public async Task<IEnumerable<Product>> Get()
+        public async Task<IEnumerable<Product>> Get(int position, int skip, string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoryIds)
         {
-            return await _productService.getProduct();
+            return await _productService.getProduct(position, skip, desc, minPrice, maxPrice, categoryIds);
         }
     }
 }
