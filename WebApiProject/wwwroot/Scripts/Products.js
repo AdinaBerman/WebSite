@@ -54,7 +54,7 @@ const getCategory = async () => {
 }
 
 const showProducts = async (minPrice, maxPrice, desc, allCategory) => {
-    products = [];
+    
     products = await getProduct(minPrice, maxPrice, desc, allCategory);
     
     for (var i = 0; i <= products.length; i++) {
@@ -88,7 +88,8 @@ const filterProducts = async () => {
     const minPrice = document.getElementById("minPrice").value;
     const maxPrice = document.getElementById("maxPrice").value;
     const desc = document.getElementById("nameSearch").value;
-    const category = document.getElementsByClassName(".opt");
+    const category = document.querySelector(".opt");
+
     const allCategory = [];
 
     for (let i = 0; i < category.length; i++) {
@@ -96,7 +97,9 @@ const filterProducts = async () => {
             allCategory.push(category[i]);
         }
     }
-    products =  await showProducts(minPrice, maxPrice, desc, allCategory);
+    document.getElementById("PoductList").replaceChildren();
+    products = await showProducts(minPrice, maxPrice, desc, allCategory);
+
 }
 
 showProducts();
