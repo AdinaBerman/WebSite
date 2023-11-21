@@ -88,15 +88,27 @@ const filterProducts = async () => {
     const minPrice = document.getElementById("minPrice").value;
     const maxPrice = document.getElementById("maxPrice").value;
     const desc = document.getElementById("nameSearch").value;
-    const category = document.querySelector(".opt");
+    //let category = document.querySelector(".opt").value;
 
     const allCategory = [];
 
-    for (let i = 0; i < category.length; i++) {
-        if (category[i].checked) {
-            allCategory.push(category[i]);
-        }
+    //allCategory[1] = document.getElementById("1");
+    //allCategory[2] = document.getElementById("2");
+    //allCategory[3] = document.getElementById("3");
+    //allCategory[4] = document.getElementById("4");
+
+    //for (let i = 0; i < category.length; i++) {
+    //    if (category[i].checked) {
+    //        allCategory.push(category[i]);
+    //    }
+    //}
+
+    for (let i = 1; i <= 4; i++) {
+        let c = document.getElementById(i);
+        if (c.checked)
+            allCategory.push(c.value);
     }
+
     document.getElementById("PoductList").replaceChildren();
     products = await showProducts(minPrice, maxPrice, desc, allCategory);
 
