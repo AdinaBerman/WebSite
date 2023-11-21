@@ -26,12 +26,21 @@ namespace WebApiProject.Controllers
                 Order newOrder = await _orderServices.addOrder(order);
                 if (newOrder == null)
                     return BadRequest();
-                return CreatedAtAction(nameof(GetType), new { id = order.OrderId }, newOrder);
+                return CreatedAtAction(nameof(Get), new { id = order.OrderId }, newOrder);
             }
             catch (Exception e)
             {
                 throw e;
             }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Order>>> Get(int id)
+        {
+            Order user = await _orderServices.getOrderById(id);
+            if (user == null)
+                return NoContent();
+            return Ok(user);
         }
     }
 }

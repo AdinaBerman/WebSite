@@ -7,6 +7,7 @@ const getProduct = async (minPrice, maxPrice, desc, allCategory) => {
     if (desc || minPrice || maxPrice || allCategory) {
         url += `?`;
     }
+
     if (desc) url += `&desc=${desc}`;
     if (minPrice) url += `&minPrice=${minPrice}`;
     if (maxPrice) url += `&maxPrice=${maxPrice}`;
@@ -57,13 +58,17 @@ const showProducts = async (minPrice, maxPrice, desc, allCategory) => {
     
     products = await getProduct(minPrice, maxPrice, desc, allCategory);
     
-    for (var i = 0; i <= products.length; i++) {
+    for (let i = 0; i <= products.length; i++) {
         const tmp = document.querySelector("#temp-card");
         const clone = tmp.content.cloneNode(true);
         clone.querySelector("img").src = "/pictures/" + products[i].image;
         clone.querySelector("h1").innerText = products[i].prodName;
         clone.querySelector(".price").innerText = products[i].prodPrice;
         clone.querySelector(".description").innerText = products[i].prodDescription;
+        let p = products[i];
+        let btn = clone.querySelector("button");
+        btn.addEventListener("click", () => { addToCart(p) });
+        console.log(products[i]);
         document.getElementById("PoductList").appendChild(clone);
     }
 }
@@ -88,30 +93,32 @@ const filterProducts = async () => {
     const minPrice = document.getElementById("minPrice").value;
     const maxPrice = document.getElementById("maxPrice").value;
     const desc = document.getElementById("nameSearch").value;
-    //let category = document.querySelector(".opt").value;
+    const category = document.querySelectorAll(".opt");
 
     const allCategory = [];
 
-    //allCategory[1] = document.getElementById("1");
-    //allCategory[2] = document.getElementById("2");
-    //allCategory[3] = document.getElementById("3");
-    //allCategory[4] = document.getElementById("4");
-
-    //for (let i = 0; i < category.length; i++) {
-    //    if (category[i].checked) {
-    //        allCategory.push(category[i]);
-    //    }
-    //}
-
-    for (let i = 1; i <= 4; i++) {
-        let c = document.getElementById(i);
-        if (c.checked)
-            allCategory.push(c.value);
+    for (let i = 0; i < category.length; i++) {
+        if (category[i].checked) {
+            allCategory.push(category[i].value);
+        }
     }
+
+    //for (let i = 1; i <= 4; i++) {
+    //    let c = document.getElementById(i);
+    //    if (c.checked)
+    //        allCategory.push(c.value);
+    //}
 
     document.getElementById("PoductList").replaceChildren();
     products = await showProducts(minPrice, maxPrice, desc, allCategory);
 
+}
+
+let i = 0;
+
+const addToCart = (product) => {
+    sessionStorage.setItem(`product ${i}`, JSON.stringify(product));
+    i++;
 }
 
 showProducts();
