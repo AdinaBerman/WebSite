@@ -1,14 +1,17 @@
 
 
-//const showRregister () => {
-//    const reg = document.getElementById("visibilityRegister")
-//    reg.
+const showRregister = () => {
+    const reg = document.getElementById("visibilityRegister")
+    reg.style.visibility = visible;
+}
+
+//const showName = () => {
+//    const userToHello = sessionStorage.getItem("user");
+//    const userToHelloJSON = JSON.parse(userToHello)
+//    const name = userToHelloJSON.firstName;
+//    document.getElementById("hello").innerText = `Hello ${name}! Welcome to our site!`;
 //}
 
-//const userToHello = sessionStorage.getItem("user");
-//const userToHelloJSON = JSON.parse(userToHello)
-//const hello = document.getElementById("hello")
-//hello.innerHTML = `Hello ${userToHelloJSON.FirstName}! Welcome to our site!`
 
 const login = async () => {
 
@@ -69,6 +72,13 @@ const register = async () => {
 }
 
 const update = async () => {
+
+    //showName();
+
+    const userToHello = sessionStorage.getItem("user");
+    const userToHelloJSON = JSON.parse(userToHello)
+    const name = userToHelloJSON.firstName;
+    document.getElementById("hello").innerText = `Hello ${name}! Welcome to our site!`;
 
     const user = {
         UserId: 0,
@@ -144,4 +154,6 @@ const checkStrongPassword = async () => {
 const goShopping = () => {
     window.location.href = "Products.html"
 }
+
+showName();
 
