@@ -93,13 +93,13 @@ const filterProducts = async () => {
     const minPrice = document.getElementById("minPrice").value;
     const maxPrice = document.getElementById("maxPrice").value;
     const desc = document.getElementById("nameSearch").value;
-    const category = document.querySelectorAll(".opt");
+    let category = document.querySelectorAll(".opt");
 
     const allCategory = [];
 
     for (let i = 0; i < category.length; i++) {
         if (category[i].checked) {
-            allCategory.push(category[i].value);
+            allCategory.push(category[i].id);
         }
     }
 

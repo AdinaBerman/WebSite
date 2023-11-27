@@ -1,33 +1,37 @@
 let itemCount = 0;// document.getElementById("itemCount");
-const prodInBag = [];
+let prodInBag = [];
 let totalAmount = 0;
 
 const allInBag = () => {
     let i = 0;
+    prodInBag = [];
     while (sessionStorage.getItem(`product ${i}`) != null) {
         let p = sessionStorage.getItem(`product ${i}`); 
         prodInBag.push(JSON.parse(p));
         i++;
     }
     console.log(prodInBag)
+    showProducts();
 }
 
 const showProducts = async () => {
-
+    itemCount = 0;
+    totalAmount = 0;
     for (let i = 0; i < prodInBag.length; i++) {
-        //const tmp = document.querySelector("template");
-        //console.log(tmp);
-        //const clone = tmp.content.cloneNode(true);
-        //clone.querySelector("imageColumn").src = "/pictures/" + prodInBag[i].image;
-        //clone.querySelector("h1").innerText = prodInBag[i].prodName;
-        //clone.querySelector(".price").innerText = prodInBag[i].prodPrice;
-        //clone.querySelector(".descriptionColumn").innerText = prodInBag[i].prodDescription;
-        //document.getElementById("tbody").appendChild(clone);
+        const tmp = document.querySelector("template");
+        const clone = tmp.content.cloneNode(true);
+        clone.querySelector(".image").src = "/pictures/" + prodInBag[i].image;
+        clone.querySelector(".price").innerText = prodInBag[i].prodPrice;
+        clone.querySelector(".descriptionColumn").innerText = prodInBag[i].prodName;
+        document.getElementById("tbody").appendChild(clone);
+        let btn = document.getElementById("delete");
+        btn.addEventListener("click", () => { deleteFromBag(prodInBag[i]) });
         totalAmount += prodInBag[i].prodPrice;
         itemCount++;
     }
-    document.getElementById("itemCount").value = itemCount;
-    document.getElementById("totalAmount").value = totalAmount;
+
+    document.getElementById("itemCount").innerText = itemCount;
+    document.getElementById("totalAmount").innerText = totalAmount;
 }
 
 const placeOrder = async () => {
@@ -77,7 +81,7 @@ const addOrderToDB = async (order) => {
             alert("Sorry, your order isn't created, Try again")
         else {
             const data = await res.json()
-            alert(`order ${data.id} added succfully`)
+            window.location.href = "order.html";
         }
     }
 
@@ -86,7 +90,34 @@ const addOrderToDB = async (order) => {
     }
 }
 
+const goShopping = () => {
+    window.location.href = "Products.html"
+}
 
-allInBag();
-showProducts();
+const deleteFromBag = (p) => {
+    const arr = [];
+
+    for (let k = 0; k < prodInBag.length; k++) {
+        if (prodInBag[k].productId != p.productId) {
+            arr.push(prodInBag[k]);
+        }
+    }
+
+    const user = sessionStorage.getItem("user");
+    const u = JSON.parse(user);
+
+    sessionStorage.clear();
+    sessionStorage.setItem("user", JSON.stringify(u));
+
+    for (let s = 0; s < arr.length; s++) {
+        sessionStorage.setItem(`product ${s}`, JSON.stringify(prodInBag[s]));
+    }
+    document.getElementById("tbody").replaceChildren([]);
+
+    prodInBag = arr;
+    showProducts();
+    
+}
+
+
 

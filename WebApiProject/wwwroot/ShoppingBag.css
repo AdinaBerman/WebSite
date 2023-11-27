@@ -1,7 +1,9 @@
 ﻿html, body {
-    direction: rtl;
-    margin: 0;
+/*    direction: rtl;
+*/    margin: 0;
     padding: 0;
+    font-family: 'Hobo Std', Hobo Std;
+    text-align: center;
 }
 
 .cart {
@@ -16,7 +18,7 @@ th {
     font-size: 13px;
     font-weight: 500;
     padding: 6px 0px;
-    font-family: 'azo-sans', sans-serif;
+    font-family: 'Hobo Std', Hobo Std;
     text-transform: uppercase;
 }
  td.imageColumn {
@@ -36,7 +38,7 @@ td {
 
 
 .itemName, .subItemName {
-    font-family: 'azo-sans', sans-serif;
+    font-family: 'Hobo Std', Hobo Std;
     font-weight: 400;
     margin-bottom: 2px;
     font-size: 14px;
@@ -50,7 +52,7 @@ td {
     max-width: 205px;
     font-size: 14px;
     color: #4D8958;
-    font-family: 'azo-sans', sans-serif;
+    font-family: 'Hobo Std', Hobo Std;
 }
 .imageColumn div {
     width: 66px;
@@ -87,7 +89,7 @@ td {
     font-weight: 500;
     font-size: 16px;
     margin-bottom: 2px;
-    font-family: 'azo-sans', sans-serif;
+    font-family: 'Hobo Std', Hobo Std;
     font-weight: 600 !important;
 }
 
@@ -96,14 +98,13 @@ td {
     padding-left: 15px;
 }
 
-    #title h1 {
-        margin: 15px 0 2px 0;
-        font-family: 'azo-sans', sans-serif;
-        font-size: 18px;
-        font-weight: 300;
-        line-height: 100%;
-        float: right;
-    }
+#title h1 {
+    margin: 15px 0 2px 0;
+    font-family: 'Hobo Std', Hobo Std;
+    font-size: 38px;
+    font-weight: 300;
+    line-height: 100%;
+}
 
 h1 {
     font: 236.36% 'azo-sans',sans-serif;
@@ -140,7 +141,7 @@ a.GoToCheckout.TopLink {
     color: #fff;
     border: 0;
     text-transform: uppercase;
-    font-family: 'azo-sans',sans-serif;
+    font-family: 'Hobo Std', Hobo Std;
 }
 
 .ContentArea a {
