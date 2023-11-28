@@ -23,9 +23,9 @@ const showProducts = async () => {
         clone.querySelector(".image").src = "/pictures/" + prodInBag[i].image;
         clone.querySelector(".price").innerText = prodInBag[i].prodPrice;
         clone.querySelector(".descriptionColumn").innerText = prodInBag[i].prodName;
+        let btn = clone.getElementById("delete");
+        btn.addEventListener('click', () => { deleteFromBag(prodInBag[i]) });
         document.getElementById("tbody").appendChild(clone);
-        let btn = document.getElementById("delete");
-        btn.addEventListener("click", () => { deleteFromBag(prodInBag[i]) });
         totalAmount += prodInBag[i].prodPrice;
         itemCount++;
     }
@@ -116,7 +116,6 @@ const deleteFromBag = (p) => {
 
     prodInBag = arr;
     showProducts();
-    
 }
 
 
