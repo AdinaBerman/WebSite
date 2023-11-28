@@ -9,25 +9,51 @@ const showRregister = () => {
 
 const login = async () => {
 
-    try {
-        const userName = document.getElementById("username").value
-        const password = document.getElementById("password").value
-        const res = await fetch(`api/Users?userName=${userName}&password=${password}`)
+    const userDTO = {
+        Email: document.getElementById("username").value,
+        Password: document.getElementById("password").value
+    }
 
-        if (res.status == 400)
-            alert("Error in connection DB")
-        else if (res.status == 204)
-            window.alert("userName or password are not valid")
+    try {
+        const res = await fetch('api/Users/login',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userDTO)
+
+            })
+        if (!res.ok)
+            alert("User not found");
         else {
             const user = await res.json()
             sessionStorage.setItem("user", JSON.stringify(user))
             window.location.href = "update.html"
         }
-
-    } catch (e) {
-        window.alert("user not found");
-        throw e;
     }
+
+    catch (err) {
+        console.log(err);
+    }
+
+    //try {
+        
+
+    //    const res = await fetch(`api/Users?userName=${userName}&password=${password}`)
+
+    //    if (res.status == 400)
+    //        alert("Error in connection DB")
+    //    else if (res.status == 204)
+    //        window.alert("userName or password are not valid")
+    //    else {
+    //        const user = await res.json()
+    //        sessionStorage.setItem("user", JSON.stringify(user))
+    //        window.location.href = "update.html"
+    //    }
+
+    //} catch (e) {
+    //    window.alert("user not found");
+    //    throw e;
+    //}
 }
 
 const register = async () => {

@@ -28,6 +28,7 @@ internal class Program
 
         builder.Services.AddDbContext<PruductsDbContext>(option => option.UseSqlServer("Server=srv2\\pupils;Database=PruductsDB;Trusted_Connection=True;TrustServerCertificate=True"));
 
+        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         var app = builder.Build();
 

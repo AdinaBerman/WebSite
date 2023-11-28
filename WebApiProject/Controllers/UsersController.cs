@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using System.Text.Json;
@@ -11,20 +13,26 @@ namespace WebApiProject.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        IMapper _mapper;
         IUserService _userService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IMapper mapper, IUserService userService)
         {
+            _mapper = mapper;
             _userService = userService;
         }
 
-        // GET: api/<UsersController>
-        [HttpGet]
-        public async Task<ActionResult<User>> Get([FromQuery] string password, [FromQuery] string userName)
+        [Route("login")]
+        [HttpPost]
+        public async Task<ActionResult<UserSaveDTO>> Post([FromBody] UserLoginDTO userLogin)
         {
-            User user = await _userService.GetUserByUsarNameAndPassword(userName, password);
+            User userParse = _mapper.Map<UserLoginDTO, User>(userLogin);
+            User user = await _userService.GetUserByUsarNameAndPassword(userParse.Email, userParse.Password);
             if (user != null)
-                return Ok(user);
+            {
+                UserSaveDTO userSave = _mapper.Map<User, UserSaveDTO>(user);
+                return CreatedAtAction(nameof(Get), new { id = user.UserId }, userSave);
+            }
             return NoContent();
 
         }

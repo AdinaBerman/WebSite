@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -9,24 +11,29 @@ namespace WebApiProject.Controllers
     [ApiController]
     public class OrdersController : Controller
     {
+        IMapper _mapper;
         IOrderServices _orderServices;
 
-        public OrdersController(IOrderServices orderervice)
+        public OrdersController(IMapper mapper, IOrderServices orderServices)
         {
-            _orderServices = orderervice;
+            _mapper = mapper;
+            _orderServices = orderServices;
         }
 
         // POST: OrdersController/Create
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult<Order>> Post([FromBody] Order order)
+        public async Task<ActionResult<Order>> Post([FromBody] OrderDTO orderDTO)
         {
             try
             {
-                Order newOrder = await _orderServices.addOrder(order);
+                OrderItemDTO orderItemDTO = orderDTO.OrderItems;
+                OrderItem orderItemParse = _mapper.Map<OrderItem, OrderItemDTO>(orderDTO.OrderItems);
+                Order OrderParse = _mapper.Map<OrderDTO, Order>(orderDTO);
+                Order newOrder = await _orderServices.addOrder(OrderParse);
                 if (newOrder == null)
                     return BadRequest();
-                return CreatedAtAction(nameof(Get), new { id = order.OrderId }, newOrder);
+                return CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrder);
             }
             catch (Exception e)
             {
