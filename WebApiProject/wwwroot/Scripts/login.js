@@ -34,29 +34,15 @@ const login = async () => {
     catch (err) {
         console.log(err);
     }
-
-    //try {
-        
-
-    //    const res = await fetch(`api/Users?userName=${userName}&password=${password}`)
-
-    //    if (res.status == 400)
-    //        alert("Error in connection DB")
-    //    else if (res.status == 204)
-    //        window.alert("userName or password are not valid")
-    //    else {
-    //        const user = await res.json()
-    //        sessionStorage.setItem("user", JSON.stringify(user))
-    //        window.location.href = "update.html"
-    //    }
-
-    //} catch (e) {
-    //    window.alert("user not found");
-    //    throw e;
-    //}
 }
 
 const register = async () => {
+    let fName = document.getElementById("FirstName").value;
+
+    if (fName.length > 15) {
+        alert("First Name is to long");
+    } 
+
     const user = {
         Email: document.getElementById("userNameRegister").value,
         Password: document.getElementById("passwordRegister").value,
@@ -82,7 +68,7 @@ const register = async () => {
             alert("Sorry, we couldn't add you to our site, Try again")
         else {
             const data = await res.json()
-            alert(`user ${data.FirstName} ${data.LastName} registered succfully`)
+            alert(`user ${data.firstName} ${data.lastName} registered succfully`)
         }
     }
 

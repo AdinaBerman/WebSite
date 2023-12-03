@@ -23,22 +23,12 @@ namespace WebApiProject.Controllers
         // POST: OrdersController/Create
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult<Order>> Post([FromBody] OrderDTO orderDTO)
+        public async Task<ActionResult<OrderDTO>> Post([FromBody] OrderDTO orderDTO)
         {
-            try
-            {
-                OrderItemDTO orderItemDTO = orderDTO.OrderItems;
-                OrderItem orderItemParse = _mapper.Map<OrderItem, OrderItemDTO>(orderDTO.OrderItems);
-                Order OrderParse = _mapper.Map<OrderDTO, Order>(orderDTO);
-                Order newOrder = await _orderServices.addOrder(OrderParse);
-                if (newOrder == null)
-                    return BadRequest();
-                return CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrder);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            Order OrderParse = _mapper.Map<OrderDTO, Order>(orderDTO);
+            Order newOrder = await _orderServices.addOrder(OrderParse);
+            OrderDTO newOrderDTO = _mapper.Map<Order, OrderDTO>(newOrder);
+            return newOrder != null ? CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrderDTO) : NoContent();
         }
 
         [HttpGet("{id}")]

@@ -15,11 +15,13 @@ namespace WebApiProject.Controllers
     {
         IMapper _mapper;
         IUserService _userService;
+        ILogger<UsersController> _logger;
 
-        public UsersController(IMapper mapper, IUserService userService)
+        public UsersController(IMapper mapper, IUserService userService, ILogger<UsersController> logger)
         {
             _mapper = mapper;
             _userService = userService;
+            _logger = logger;
         }
 
         [Route("login")]
@@ -31,6 +33,7 @@ namespace WebApiProject.Controllers
             if (user != null)
             {
                 UserSaveDTO userSave = _mapper.Map<User, UserSaveDTO>(user);
+                _logger.LogInformation("user{0} connect", userParse.Email);
                 return CreatedAtAction(nameof(Get), new { id = user.UserId }, userSave);
             }
             return NoContent();
@@ -39,30 +42,25 @@ namespace WebApiProject.Controllers
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<User>>> Get(int id)
+        public async Task<ActionResult<UserDTO>> Get(int id)
         {
             User user = await _userService.getUserById(id);
             if (user == null)
                 return NoContent();
-            return Ok(user);
+            UserDTO userDTO = _mapper.Map<User, UserDTO>(user);
+            return Ok(userDTO);
         }
 
         //POST api/<UsersController>
         [HttpPost]
-        public async Task<ActionResult<User>> Post([FromBody] User user)
+        public async Task<ActionResult<UserDTO>> Post([FromBody] UserDTO user)
         {
-            try
-            {
-                User newUser = await _userService.addUser(user);
-                if (newUser == null) 
-                    return BadRequest();
-                return CreatedAtAction(nameof(Get), new { id = user.UserId }, newUser);
-            } 
-            catch(Exception e)
-            {
-                throw e;
-            }
-           
+            User userParse = _mapper.Map<UserDTO, User>(user);
+            User newUser = await _userService.addUser(userParse);
+            if (newUser == null) 
+                return BadRequest();
+            UserDTO newUserDTO = _mapper.Map<User, UserDTO>(newUser);
+            return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUserDTO);
         }
 
         [HttpPost("checkStrongPassword")]
@@ -77,19 +75,13 @@ namespace WebApiProject.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] User userUpdate)
+        public async Task<ActionResult> Put(int id, [FromBody] UserDTO userUpdate)
         {
-            try
-            {
-                User updateUser = await _userService.update(id, userUpdate);
-                if (updateUser == null)
-                    return BadRequest();
-                return Ok(updateUser);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            User userParse = _mapper.Map<UserDTO, User>(userUpdate);
+            User updateUser = await _userService.update(id, userParse);
+            if (updateUser == null)
+                return BadRequest();
+            return Ok(updateUser);
         }
 
     }

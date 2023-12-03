@@ -1,6 +1,9 @@
 using Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using NLog.Web;
+using PresidentsApp.Middlewares;
 using Repositories;
 using Services;
 
@@ -26,7 +29,9 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddDbContext<PruductsDbContext>(option => option.UseSqlServer("Server=srv2\\pupils;Database=PruductsDB;Trusted_Connection=True;TrustServerCertificate=True"));
+        builder.Host.UseNLog();
+
+        builder.Services.AddDbContext<PruductsDbContext>(option => option.UseSqlServer(builder.Configuration["ConnentionString"]));
 
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -39,6 +44,7 @@ internal class Program
         }
 
         // Configure the HTTP request pipeline.
+        app.UseErrorHandlingMiddleware();
 
         app.UseHttpsRedirection();
 

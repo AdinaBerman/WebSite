@@ -86,7 +86,7 @@ p.description{
 }
 
 .Icon {
-    background-image: url(../Images/BagActive.png);
+    background-image: url(../BagActive.png);
     background-repeat: no-repeat;
     padding: 9px 2px 2px 2px;
     color: #4f8855;

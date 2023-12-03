@@ -10,7 +10,6 @@ const allInBag = () => {
         prodInBag.push(JSON.parse(p));
         i++;
     }
-    console.log(prodInBag)
     showProducts();
 }
 
@@ -60,7 +59,7 @@ const placeOrder = async () => {
     const order = {
         OrderDate: new Date(),
         UserId: userJson.userId,
-        OrderSum: itemCount,
+        OrderSum: totalAmount,
         OrderItems: orderItemsArr
     }
 
@@ -97,9 +96,15 @@ const goShopping = () => {
 const deleteFromBag = (p) => {
     const arr = [];
 
+    let x = 0;
     for (let k = 0; k < prodInBag.length; k++) {
         if (prodInBag[k].productId != p.productId) {
             arr.push(prodInBag[k]);
+        }
+        else {
+            p++;
+            if (p > 1)
+                arr.push(prodInBag[i]);
         }
     }
 

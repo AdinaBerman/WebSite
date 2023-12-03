@@ -57,20 +57,28 @@ const getCategory = async () => {
 const showProducts = async (minPrice, maxPrice, desc, allCategory) => {
     
     products = await getProduct(minPrice, maxPrice, desc, allCategory);
-    
+
+    let u = 0;
+    while (sessionStorage.getItem(`product ${u}`) != null) {
+        u++;
+        document.getElementById("ItemsCountText").innerText++;
+    }
+
     for (let i = 0; i <= products.length; i++) {
         const tmp = document.querySelector("#temp-card");
         const clone = tmp.content.cloneNode(true);
         clone.querySelector("img").src = "/pictures/" + products[i].image;
         clone.querySelector("h1").innerText = products[i].prodName;
-        clone.querySelector(".price").innerText = products[i].prodPrice;
+        clone.querySelector(".price").innerText = products[i].prodPrice + "$";
         clone.querySelector(".description").innerText = products[i].prodDescription;
         let p = products[i];
         let btn = clone.querySelector("button");
         btn.addEventListener("click", () => { addToCart(p) });
-        console.log(products[i]);
         document.getElementById("PoductList").appendChild(clone);
     }
+
+ 
+  
 }
 
 const showCatedory = async () => {
@@ -103,20 +111,23 @@ const filterProducts = async () => {
         }
     }
 
-    //for (let i = 1; i <= 4; i++) {
-    //    let c = document.getElementById(i);
-    //    if (c.checked)
-    //        allCategory.push(c.value);
-    //}
-
     document.getElementById("PoductList").replaceChildren();
     products = await showProducts(minPrice, maxPrice, desc, allCategory);
 
 }
 
+
 let i = 0;
+let propInBag = [];
 
 const addToCart = (product) => {
+    while (sessionStorage.getItem(`product ${i}`) != null) {
+        let p = sessionStorage.getItem(`product ${i}`);
+        propInBag.push(JSON.parse(p));
+        i++;
+    }
+
+    document.getElementById("ItemsCountText").innerText++;
     sessionStorage.setItem(`product ${i}`, JSON.stringify(product));
     i++;
 }

@@ -154,3 +154,15 @@ a.GoToCheckout.TopLink {
     display: inline-block;
     padding: 4px 10px;
 }
+
+#delete {
+    padding-top: 6px;
+    padding-bottom: 7px;
+    color: white;
+    border: 0;
+    text-transform: uppercase;
+    font-family: 'Hobo Std', Hobo Std;
+    background-color:black;
+    font-size: 11px;
+    border-radius: 25px;
+}
