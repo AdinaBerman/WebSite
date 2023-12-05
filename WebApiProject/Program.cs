@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NLog.Web;
-using PresidentsApp.Middlewares;
+//using PresidentsApp.Middlewares;
 using Repositories;
 using Services;
+using WebApiProject.middlewere;
+
 
 internal class Program
 {
@@ -25,6 +27,8 @@ internal class Program
         builder.Services.AddTransient<IProductServices, ProductServices>();
         builder.Services.AddTransient<ICategoryReposirory, CategoryReposirory>();
         builder.Services.AddTransient<ICatogoryServices, CatogoryServices>();
+        //builder.Services.AddTransient<IRatingService, RatingService>();
+        builder.Services.AddTransient<IRatingRepository, RatingRepository>();
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -44,7 +48,10 @@ internal class Program
         }
 
         // Configure the HTTP request pipeline.
-        //app.UseErrorHandlingMiddleware();
+
+       // app.UseErrorHandlingMiddleware();
+
+        //app.UseRatingMiddleware();
 
         app.UseHttpsRedirection();
 

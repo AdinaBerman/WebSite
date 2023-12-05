@@ -14,7 +14,7 @@ namespace Services
 
         public RatingService(IRatingRepository ratingRepository)
         {
-            ratingRepository = _ratingRepository;
+            _ratingRepository = ratingRepository;
         }
 
         public async Task<Rating> addRating(Rating rating)
