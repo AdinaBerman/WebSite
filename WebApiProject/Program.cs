@@ -31,7 +31,7 @@ internal class Program
 
         builder.Host.UseNLog();
 
-        builder.Services.AddDbContext<PruductsDbContext>(option => option.UseSqlServer(builder.Configuration["ConnentionString"]));
+        builder.Services.AddDbContext<PruductsDbContext>(option => option.UseSqlServer(builder.Configuration["MyStore"]));
 
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -44,7 +44,7 @@ internal class Program
         }
 
         // Configure the HTTP request pipeline.
-        app.UseErrorHandlingMiddleware();
+        //app.UseErrorHandlingMiddleware();
 
         app.UseHttpsRedirection();
 

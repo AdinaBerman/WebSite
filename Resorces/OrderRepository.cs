@@ -11,7 +11,11 @@ namespace Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        private static PruductsDbContext _pruductsDbContext = new PruductsDbContext();
+        private static PruductsDbContext _pruductsDbContext;
+        public OrderRepository(PruductsDbContext pruductsDbContext)
+        {
+            _pruductsDbContext = pruductsDbContext;
+        }
 
         public async Task<Order> addOrder(Order order)
         {

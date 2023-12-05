@@ -10,7 +10,11 @@ namespace Repositories
 {
     public class CategoryReposirory : ICategoryReposirory
     {
-        private static PruductsDbContext _pruductsDbContext = new PruductsDbContext();
+        private static PruductsDbContext _pruductsDbContext;
+        public CategoryReposirory(PruductsDbContext pruductsDbContext)
+        {
+            _pruductsDbContext = pruductsDbContext;
+        }
 
         public async Task<ICollection<Category>> getCategory()
         {

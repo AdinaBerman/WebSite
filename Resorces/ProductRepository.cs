@@ -11,7 +11,11 @@ namespace Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private static PruductsDbContext _pruductsDbContext = new PruductsDbContext();
+        private static PruductsDbContext _pruductsDbContext;
+        public ProductRepository(PruductsDbContext pruductsDbContext)
+        {
+            _pruductsDbContext = pruductsDbContext;
+        }
 
         public async Task<ICollection<Product>> getProducts(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
