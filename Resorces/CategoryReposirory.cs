@@ -16,7 +16,7 @@ namespace Repositories
             _pruductsDbContext = pruductsDbContext;
         }
 
-        public async Task<ICollection<Category>> getCategory()
+        public async Task<ICollection<Category>> getCategoryAsync()
         {
             return await _pruductsDbContext.Categories.ToListAsync();
         }

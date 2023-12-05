@@ -4,6 +4,6 @@ namespace Repositories
 {
     public interface ICategoryReposirory
     {
-        Task<ICollection<Category>> getCategory();
+        Task<ICollection<Category>> getCategoryAsync();
     }
 }

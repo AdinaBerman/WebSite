@@ -22,7 +22,7 @@ namespace Services
             _productRepository = productRepository;
         }
 
-        public async Task<Order> addOrder(Order order)
+        public async Task<Order> addOrderAsync(Order order)
         {
             int price = order.OrderSum;
             int sumPrice = 0;
@@ -37,7 +37,7 @@ namespace Services
 
             for(int i=0; i<products.Length; i++)
             {
-                Product p = await _productRepository.getProductById(products[i]);
+                Product p = await _productRepository.getProductByIdAsync(products[i]);
                 prods.Add(p);
             }
 
@@ -51,12 +51,12 @@ namespace Services
                 _logger.LogError("someone try to create order with not valid order sum");
             }
             order.OrderSum = sumPrice;
-            return await _repository.addOrder(order);
+            return await _repository.addOrderAsync(order);
         }
 
-        public async Task<Order> getOrderById(int id)
+        public async Task<Order> getOrderByIdAsync(int id)
         {
-            return await _repository.getOrderById(id);
+            return await _repository.getOrderByIdAsync(id);
         }
     }
 }

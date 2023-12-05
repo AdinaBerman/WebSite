@@ -1,12 +1,3 @@
-
-
-const showRregister = () => {
-    const reg = document.getElementById("visibilityRegister")
-    reg.style.visibility = visible;
-}
-
-
-
 const login = async () => {
 
     const userDTO = {

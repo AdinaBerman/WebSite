@@ -17,7 +17,7 @@ namespace Repositories
             _pruductsDbContext = pruductsDbContext;
         }
 
-        public async Task<ICollection<Product>> getProducts(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
+        public async Task<ICollection<Product>> getProductsAsync(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
             var query = _pruductsDbContext.Products.Where(product =>
             (desc == null ? (true) : (product.ProdName.Contains(desc)))
@@ -31,7 +31,7 @@ namespace Repositories
             return products;
         }
 
-        public async Task<Product> getProductById(int id)
+        public async Task<Product> getProductByIdAsync(int id)
         {
             return await _pruductsDbContext.Products.Where(p => p.ProductId == id).FirstOrDefaultAsync();
         }

@@ -51,7 +51,7 @@ internal class Program
 
        // app.UseErrorHandlingMiddleware();
 
-        //app.UseRatingMiddleware();
+        app.UseRatingMiddleware();
 
         app.UseHttpsRedirection();
 

@@ -26,7 +26,7 @@ namespace WebApiProject.Controllers
         [HttpGet]
         public async Task<IEnumerable<ProductDTO>> Get(int position, int skip, string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoryIds)
         {
-            IEnumerable <Product>  products = await _productService.getProduct(position, skip, desc, minPrice, maxPrice, categoryIds);
+            IEnumerable <Product>  products = await _productService.getProductAsync(position, skip, desc, minPrice, maxPrice, categoryIds);
             IEnumerable<ProductDTO> productDTOs = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
             return productDTOs;
         }

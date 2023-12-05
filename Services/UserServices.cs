@@ -19,30 +19,30 @@ namespace Services
         }
 
 
-        public async Task<User> addUser(User user)
+        public async Task<User> addUserAsync(User user)
         {
             int res = checkPassword(user.Password);
             if (res < 2) 
                 return null;
-            return await _repository.addUser(user);
+            return await _repository.addUserAsync(user);
         }
 
-        public async Task<User> update(int id, User user)
+        public async Task<User> updateAsync(int id, User user)
         {
             int res = checkPassword(user.Password);
             if (res >= 2)
-                return await _repository.update(id, user);
+                return await _repository.updateAsync(id, user);
             return null;
         }
 
-        public async Task<User> GetUserByUsarNameAndPassword(string userName, string password)
+        public async Task<User> GetUserByUsarNameAndPasswordAsync(string userName, string password)
         {
-            return await _repository.GetUserByUsarNameAndPassword(userName, password);
+            return await _repository.GetUserByUsarNameAndPasswordAsync(userName, password);
         }
 
-        public async Task<User> getUserById(int id)
+        public async Task<User> getUserByIdAsync(int id)
         {
-            return await _repository.getUserById(id);
+            return await _repository.getUserByIdAsync(id);
         }
 
     }

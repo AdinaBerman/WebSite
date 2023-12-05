@@ -4,6 +4,6 @@ namespace Services
 {
     public interface ICatogoryServices
     {
-        Task<ICollection<Category>> getCategory();
+        Task<ICollection<Category>> getCategoryAsync();
     }
 }

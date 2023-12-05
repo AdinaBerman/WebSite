@@ -29,7 +29,7 @@ namespace WebApiProject.Controllers
         public async Task<ActionResult<UserSaveDTO>> Post([FromBody] UserLoginDTO userLogin)
         {
             User userParse = _mapper.Map<UserLoginDTO, User>(userLogin);
-            User user = await _userService.GetUserByUsarNameAndPassword(userParse.Email, userParse.Password);
+            User user = await _userService.GetUserByUsarNameAndPasswordAsync(userParse.Email, userParse.Password);
             if (user != null)
             {
                 UserSaveDTO userSave = _mapper.Map<User, UserSaveDTO>(user);
@@ -44,7 +44,7 @@ namespace WebApiProject.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDTO>> Get(int id)
         {
-            User user = await _userService.getUserById(id);
+            User user = await _userService.getUserByIdAsync(id);
             if (user == null)
                 return NoContent();
             UserDTO userDTO = _mapper.Map<User, UserDTO>(user);
@@ -56,7 +56,7 @@ namespace WebApiProject.Controllers
         public async Task<ActionResult<UserDTO>> Post([FromBody] UserDTO user)
         {
             User userParse = _mapper.Map<UserDTO, User>(user);
-            User newUser = await _userService.addUser(userParse);
+            User newUser = await _userService.addUserAsync(userParse);
             if (newUser == null) 
                 return BadRequest();
             UserDTO newUserDTO = _mapper.Map<User, UserDTO>(newUser);
@@ -78,7 +78,7 @@ namespace WebApiProject.Controllers
         public async Task<ActionResult> Put(int id, [FromBody] UserDTO userUpdate)
         {
             User userParse = _mapper.Map<UserDTO, User>(userUpdate);
-            User updateUser = await _userService.update(id, userParse);
+            User updateUser = await _userService.updateAsync(id, userParse);
             if (updateUser == null)
                 return BadRequest();
             return Ok(updateUser);

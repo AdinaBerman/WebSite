@@ -17,9 +17,9 @@ namespace Services
             _repository = productRepository;
         }
 
-        public async Task<ICollection<Product>> getProduct(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
+        public async Task<ICollection<Product>> getProductAsync(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
-            return await _repository.getProducts( position, skip, desc, minPrice, maxPrice ,categoryIds);
+            return await _repository.getProductsAsync( position, skip, desc, minPrice, maxPrice ,categoryIds);
         }
 
     }

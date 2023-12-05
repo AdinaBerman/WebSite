@@ -6,9 +6,9 @@ namespace Repositories
     {
         //public Task<ICollection<Product>> getProducts();
 
-        public Task<ICollection<Product>> getProducts(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds);
+        public Task<ICollection<Product>> getProductsAsync(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds);
 
-        public Task<Product> getProductById(int id);
+        public Task<Product> getProductByIdAsync(int id);
 
     }
 }

@@ -9,6 +9,6 @@ namespace Repositories
 {
     public interface IRatingRepository
     {
-        public Task<Rating> addRating(Rating rating);
+        public Task<Rating> addRatingAsync(Rating rating);
     }
 }

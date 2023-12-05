@@ -15,19 +15,19 @@ namespace Repositories
             _pruductsDbContext = pruductsDbContext;
         }
 
-        public async Task<User> addUser(User user)
+        public async Task<User> addUserAsync(User user)
         {
             await _pruductsDbContext.Users.AddAsync(user);
             await _pruductsDbContext.SaveChangesAsync();
             return user;
         }
 
-        public async Task<User> GetUserByUsarNameAndPassword(string userName, string password)
+        public async Task<User> GetUserByUsarNameAndPasswordAsync(string userName, string password)
         {
             return await _pruductsDbContext.Users.Where(p => p.Email == userName && p.Password == password).FirstOrDefaultAsync();
         }
 
-        public async Task<User> update(int id, User userUpdate)
+        public async Task<User> updateAsync(int id, User userUpdate)
         {
             userUpdate.UserId = id;
 
@@ -36,7 +36,7 @@ namespace Repositories
             return userUpdate;
         }
 
-        public async Task<User> getUserById(int id)
+        public async Task<User> getUserByIdAsync(int id)
         {
             return await _pruductsDbContext.Users.Where(p => p.UserId == id).FirstOrDefaultAsync();
 

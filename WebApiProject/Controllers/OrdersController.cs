@@ -26,7 +26,7 @@ namespace WebApiProject.Controllers
         public async Task<ActionResult<OrderDTO>> Post([FromBody] OrderDTO orderDTO)
         {
             Order OrderParse = _mapper.Map<OrderDTO, Order>(orderDTO);
-            Order newOrder = await _orderServices.addOrder(OrderParse);
+            Order newOrder = await _orderServices.addOrderAsync(OrderParse);
             OrderDTO newOrderDTO = _mapper.Map<Order, OrderDTO>(newOrder);
             return newOrder != null ? CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrderDTO) : NoContent();
         }
@@ -34,7 +34,7 @@ namespace WebApiProject.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Order>>> Get(int id)
         {
-            Order user = await _orderServices.getOrderById(id);
+            Order user = await _orderServices.getOrderByIdAsync(id);
             if (user == null)
                 return NoContent();
             return Ok(user);

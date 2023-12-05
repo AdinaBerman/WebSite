@@ -17,9 +17,9 @@ namespace Services
             _repository = categoryRepository;
         }
 
-        public async Task<ICollection<Category>> getCategory()
+        public async Task<ICollection<Category>> getCategoryAsync()
         {
-            return await _repository.getCategory();
+            return await _repository.getCategoryAsync();
         }
     }
 }

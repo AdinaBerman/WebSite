@@ -16,7 +16,7 @@ namespace WebApiProject.middlewere
             _next = next;
         }
 
-        public async Task<Task> Invoke(HttpContext httpContext, IRatingRepository ratingRepository)
+        public Task Invoke(HttpContext httpContext, IRatingRepository ratingRepository)
         {
             Rating rating = new Rating();
             rating.Host = httpContext.Request.Host.Value;
@@ -24,8 +24,8 @@ namespace WebApiProject.middlewere
             rating.Path = httpContext.Request.Path;
             rating.RecordDate = DateTime.Now;
             rating.Referer = httpContext.Request.Protocol + httpContext.Request.Host;
-            //rating.UserAgent = httpContext.Request.
-            await ratingRepository.addRating(rating);
+            rating.UserAgent = httpContext.Request.Headers.UserAgent.ToString();
+            ratingRepository.addRating(rating);
 
             return _next(httpContext);
         }
