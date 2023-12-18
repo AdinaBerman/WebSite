@@ -25,7 +25,7 @@ namespace WebApiProject.middlewere
             rating.RecordDate = DateTime.Now;
             rating.Referer = httpContext.Request.Protocol + httpContext.Request.Host;
             rating.UserAgent = httpContext.Request.Headers.UserAgent.ToString();
-            ratingRepository.addRating(rating);
+            ratingRepository.addRatingAsync(rating);
 
             return _next(httpContext);
         }

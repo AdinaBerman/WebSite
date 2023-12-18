@@ -20,7 +20,7 @@ namespace Repositories
             _configuration = configuration;
         }
 
-        public async Task<Rating> addRating(Rating rating)
+        public async Task<Rating> addRatingAsync(Rating rating)
         {
             string query = "INSERT INTO RATING(HOST, METHOD, PATH, REFERER ,USER_AGENT, Record_Date)" +
                 "VALUES(@HOST, @METHOD, @PATH, @REFERER, @USER_AGENT, @Record_Date)";
@@ -43,5 +43,6 @@ namespace Repositories
                 return rating;
             }
         }
+
     }
 }

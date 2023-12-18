@@ -68,44 +68,7 @@ const register = async () => {
     }
 }
 
-//const update = async () => {
 
-//    const user = {
-//        UserId: 0,
-//        Email: document.getElementById("userNameRegister").value,
-//        Password: document.getElementById("passwordRegister").value,
-//        FirstName: document.getElementById("FirstName").value,
-//        LastName: document.getElementById("LastName").value
-//    }
-
-//    const checkIfStrong = await checkStrongPassword()
-
-//    if (!checkIfStrong) {
-//        return alert("Please enter strong password!");
-//    }
-
-//    try {
-//        const userJson = sessionStorage.getItem("user")
-//        console.log(userJson);
-//        const id = JSON.parse(userJson).userId
-//        user.UserId = id;
-//        const res = await fetch(`api/Users/${id}`,
-//            {
-//                method: 'PUT',
-//                headers: { 'Content-Type': `application/json` },
-//                body: JSON.stringify(user)
-//            })
-//        if (!res.ok)
-//            alert("error updated to the server,please try again!")
-//        else {
-
-//            alert(`user ${id} updated succfully`)
-//        }
-
-//    } catch (e) {
-//        alert(e)
-//    }
-//}
 
 const checkStrongPassword = async () => {
 
@@ -141,15 +104,4 @@ const checkStrongPassword = async () => {
     }
 }
 
-//const goShopping = () => {
-//    window.location.href = "Products.html"
-//}
-
-
-const userToHello = sessionStorage.getItem("user");
-const userToHelloJSON = JSON.parse(userToHello)
-//const name = userToHelloJSON.firstName;
-document.getElementById("hello").value = `Hello ${userToHelloJSON.firstName}! Welcome to our site!`;
-
-//showName();
 
